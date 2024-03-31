@@ -10,7 +10,7 @@ script.
         region: '!{region}',
         onCommentLoaded: function () {
           btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
-          document.querySelectorAll('a').forEach(function(aEl){
+          document.querySelectorAll('a[target="_blank"]').forEach(function(aEl){
             if(!aEl.href.startsWith(window.location.origin)){
               aEl.href='https://link.zhihu.com/?target='+encodeURI(aEl.href);
             }  
