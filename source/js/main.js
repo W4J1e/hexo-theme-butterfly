@@ -779,3 +779,25 @@ document.addEventListener('DOMContentLoaded', function () {
   refreshFn()
   unRefreshFn()
 })
+const host = window.location.host
+if (host !== 'hin.cool' && ! host.startsWith('localhost') && ! host.startsWith('127.0.0.1')) {
+    document.body.innerHTML = [
+        '<div style="margin: auto;">',
+        '<h1>当前站点为恶意镜像，将在五秒后跳转原始作者站点。</h1>',
+        '<br />',
+        '<h1>互联网并非法外之地。</h1>',
+        '</div>',
+    ].join('')
+    document.body.style = [
+        'background-color: white;',
+        'color: black;',
+        'text-align: center;',
+        'font-size: 50px;',
+        'width: 100vw;',
+        'height: 100vh;',
+        'display: flex;',
+    ].join('')
+    setTimeout(() => {
+        window.location.href = 'https://hin.cool'
+    }, 5000)
+}
