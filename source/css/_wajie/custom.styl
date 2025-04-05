@@ -99,3 +99,47 @@
 #pagination 
   .page-number
     color: #0044ffd3 
+
+/* 固定顶部菜单栏并移除背景 */
+#nav {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  background: transparent !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+}
+
+/* 去除菜单栏的阴影效果 */
+#nav.show {
+  box-shadow: none !important;
+}
+
+/* 菜单项文字颜色调整为白色 */
+#nav a {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* 菜单项悬停效果 */
+#nav a:hover {
+  color: #ffffff !important;
+  opacity: 0.8;
+}
+
+/* 搜索按钮 */
+#search-button {
+  color: #ffffff !important;
+}
+
+/* 菜单按钮（移动端） */
+#toggle-menu {
+  color: #ffffff !important;
+}
+
+/* 适配暗色模式 - 保持白色但调整阴影 */
+[data-theme="dark"] #nav a {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
