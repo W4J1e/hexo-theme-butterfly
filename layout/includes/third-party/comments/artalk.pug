@@ -1,0 +1,80 @@
+- const { server, site, option } = theme.artalk
+- const { use, lazyload } = theme.comments
+
+script.
+  (() => {
+    let artalkItem = null
+    const option = !{JSON.stringify(option)}
+    const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+    const destroyArtalk = () => {
+      if (artalkItem) {
+        artalkItem.destroy()
+        artalkItem = null
+      }
+    }
+
+    const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+    const initArtalk = (el = document, pageKey = location.pathname) => {
+      artalkItem = Artalk.init({
+        el: el.querySelector('#artalk-wrap'),
+        server: '!{server}',
+        site: '!{site}',
+        darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+        ...option,
+        pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+      })
+
+      if (GLOBAL_CONFIG.lightbox === 'null') return
+      artalkItem.on('list-loaded', () => {
+        artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+          const $content = comment.getRender().$content
+          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+        })
+      })
+
+      if (isShuoshuo) {
+        window.shuoshuoComment.destroyArtalk = () => {
+          destroyArtalk()
+          if (el.children.length) {
+            el.innerHTML = ''
+            el.classList.add('no-comment')
+          }
+        }
+      }
+
+    }
+
+    const loadArtalk = () => {
+      if (typeof Artalk === 'object') {
+        setTimeout(initArtalk, 0)
+        return
+      }
+      getScript('!{theme.CDN.artalk_js}').then(() => {
+        // 动态加载CSS，因为getScript只处理JS
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = '!{theme.CDN.artalk_css}'
+        document.head.appendChild(link)
+        
+        initArtalk()
+      })
+    }
+
+    if (isShuoshuo) {
+      '!{use[0]}' === 'Artalk'
+        ? window.shuoshuoComment = { loadComment: loadArtalk }
+        : window.loadOtherComment = loadArtalk
+      return
+    }
+
+    if ('!{use[0]}' === 'Artalk' || !!{lazyload}) {
+      if (!{lazyload}) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+      else loadArtalk()
+    } else {
+      window.loadOtherComment = () => {
+        loadArtalk()
+      }
+    }
+  })()

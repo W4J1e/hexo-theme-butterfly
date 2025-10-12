@@ -142,3 +142,14 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
 
     #operare_artitalk .c2
       background: #121212
+      
+    // artalk
+    .artalk.atk-dark-mode,
+    .atk-layer-wrap.atk-dark-mode
+      --at-color-font: alpha(#FFFFFF, .7)
+      --at-color-meta: alpha(#FFFFFF, .7)
+      --at-color-grey: alpha(#FFFFFF, .7)
+
+    .atk-send-btn,
+    .atk-badge
+      color: alpha(#FFFFFF, .7) !important      
