@@ -2,28 +2,23 @@ if theme.menu
   .menus_items
     each value, label in theme.menu
       if typeof value !== 'object'
-        .menus_item
+        .menus_item.island-item
           - const valueArray = value.split('||')
-          a.site-page(href=url_for(trim(valueArray[0])))
+          - const menuUrl = trim(valueArray[0])
+          - let isCurrent = false
+          - if (menuUrl === '/') { isCurrent = is_home() } else { isCurrent = page.path && url_for(page.path).startsWith(url_for(menuUrl)) }
+          a.site-page(href=url_for(menuUrl) class=isCurrent ? 'active' : '')
             if valueArray[1]
-              i.fa-fw(class=trim(valueArray[1]))
-            span.sr-only= label
+              i(class=trim(valueArray[1]))
             span=' '+label
       else
-        .menus_item
-          - const labelArray = label.split('||')
-          - const hideClass = labelArray[2] && trim(labelArray[2]) === 'hide' ? 'hide' : ''
-          a.site-page.group(class=`${hideClass}` href='javascript:void(0);')
-            i.fad.fa-ellipsis-v
-            if labelArray[1]
-              i.fa-fw(class=trim(labelArray[1]))
-            span.sr-only= trim(labelArray[0])
-            span=' '+ trim(labelArray[0])
-          ul.menus_item_child
-            each val,lab in value 
-              - const valArray = val.split('||')
-              li
-                a.site-page.child(href=url_for(trim(valArray[0])))
-                  if valArray[1]
-                    i.fa-fw(class=trim(valArray[1]))
-                  span=' '+ lab
+        each val, lab in value
+          - const valArray = val.split('||')
+          - const menuUrl = trim(valArray[0])
+          - let isCurrent = false
+          - if (menuUrl === '/') { isCurrent = is_home() } else { isCurrent = page.path && url_for(page.path).startsWith(url_for(menuUrl)) }
+          .menus_item.island-item
+            a.site-page(href=url_for(menuUrl) class=isCurrent ? 'active' : '')
+              if valArray[1]
+                i(class=trim(valArray[1]))
+              span=' '+ lab

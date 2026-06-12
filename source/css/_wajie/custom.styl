@@ -1,147 +1,1177 @@
 // Icon 颜色
-// https://flatuicolors.com/palette/defo
 .fa,
 .fas,
 .fab,
 .fad,
 .fal
-  &.PINKENV //信封粉
-    color:#fb00c5
-  &.RSSYELLOW //RSS黄
-    color: #ff8303
-  &.TURQUOISE //宝石蓝
-    color: #1abc9c
-  &.EMERALD //青草绿
-    color: #2ecc71
-  &.PETERRIVE //天蓝
-    color: #3498db
-  &.AMETHYST //有点紫
-    color: #9b59b6
-  &.WETASPHALT //偏黑色
-    color: #34495e
-  &.GREENSEA //绿蓝
-    color: #16a08599
-  &.NEPHRITIS //更青
-    color: #27ae60
-  &.BELIZEHOLE //更蓝
-    color: #2980b9
-  &.WISTERIA //更紫
-    color: #8e44ad
-  &.MIDNIGHTBLUE //深夜蓝
-    color: #2c3e50
-  &.SUNFLOWER //向日葵
-    color: #f1c40f
-  &.CARROT //胡萝卜
-    color: #e67e22
-  &.ALIZARIN //橘红
-    color: #e74c3c
-  &.CLOUDS //云朵
-    color: #ecf0f1
-  &.CONCRETE //混凝土
-    color: #95a5a6
-  &.ORANGE //橙子
-    color: #f39c12
-  &.PUMPKIN //南瓜
-    color: #d35400
-  &.POMEGRANATE //石榴
-    color: #c0392b
-  &.SILVER //银色
-    color: #bdc3c7
-  &.ASBESTOS //石棉
-    color: #7f8c8d
+  &.PINKENV { color: #fb00c5 }
+  &.RSSYELLOW { color: #ff8303 }
+  &.TURQUOISE { color: #1abc9c }
+  &.EMERALD { color: #2ecc71 }
+  &.PETERRIVE { color: #3498db }
+  &.AMETHYST { color: #9b59b6 }
+  &.WETASPHALT { color: #34495e }
+  &.GREENSEA { color: #16a08599 }
+  &.NEPHRITIS { color: #27ae60 }
+  &.BELIZEHOLE { color: #2980b9 }
+  &.WISTERIA { color: #8e44ad }
+  &.MIDNIGHTBLUE { color: #2c3e50 }
+  &.SUNFLOWER { color: #f1c40f }
+  &.CARROT { color: #e67e22 }
+  &.ALIZARIN { color: #e74c3c }
+  &.CLOUDS { color: #ecf0f1 }
+  &.CONCRETE { color: #95a5a6 }
+  &.ORANGE { color: #f39c12 }
+  &.PUMPKIN { color: #d35400 }
+  &.POMEGRANATE { color: #c0392b }
+  &.SILVER { color: #bdc3c7 }
+  &.ASBESTOS { color: #7f8c8d }
 
-/* 头图透明 */
-#page-header{
-  background: transparent!important;
-}
-/* 页脚透明 */
-#footer{
-  background: transparent!important;
-}
-/*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */
-#page-header.post-bg:before {
-  background-color: transparent!important;
-}
-/*夜间模式伪类遮罩层透明*/
+/* ==========================================
+   海洋系 Digital Garden - 色彩系统
+   ========================================== */
+:root
+  --ocean-primary: #4ea6ff
+  --ocean-secondary: #7bc7ff
+  --ocean-accent: #ffb84d
+  --ocean-bg-start: #eef8ff
+  --ocean-bg-mid: #d9f0ff
+  --ocean-bg-end: #bde4ff
+  --ocean-card-bg: rgba(255, 255, 255, 0.45)
+  --ocean-card-hover: rgba(255, 255, 255, 0.62)
+  --ocean-card-border: rgba(255, 255, 255, 0.4)
+  --ocean-shadow: 0 2px 16px rgba(78, 166, 255, 0.06)
+  --ocean-shadow-hover: 0 8px 30px rgba(78, 166, 255, 0.12)
+  --ocean-radius: 20px
+  --ocean-radius-sm: 12px
+  --ocean-blur: blur(16px)
+
 [data-theme="dark"]
-  #footer::before{
-      background: transparent!important;
-    }
+  --ocean-card-bg: rgba(30, 50, 70, 0.55)
+  --ocean-card-hover: rgba(30, 50, 70, 0.72)
+  --ocean-card-border: rgba(78, 166, 255, 0.1)
+  --ocean-shadow: 0 2px 16px rgba(0, 0, 0, 0.15)
+  --ocean-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25)
+
+/* ==========================================
+   海洋背景
+   ========================================== */
+#ocean-bg
+  position: fixed
+  z-index: -999
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  pointer-events: none
+
+  .ocean-gradient
+    position: absolute
+    width: 100%
+    height: 100%
+    background: linear-gradient(180deg, var(--ocean-bg-start) 0%, var(--ocean-bg-mid) 45%, var(--ocean-bg-end) 100%)
+
+  .ocean-glow
+    position: absolute
+    top: -10%
+    left: 30%
+    width: 40%
+    height: 40%
+    background: radial-gradient(ellipse, rgba(78, 166, 255, 0.08) 0%, transparent 70%)
+    pointer-events: none
+
+  .ocean-waves
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: auto
+
+    .wave-1
+      fill: rgba(78, 166, 255, 0.15)
+      animation: wave-drift 12s ease-in-out infinite
+
+    .wave-2
+      fill: rgba(78, 166, 255, 0.25)
+      animation: wave-drift 8s ease-in-out infinite reverse
+
+    .wave-3
+      fill: rgba(78, 166, 255, 0.4)
+      animation: wave-drift 10s ease-in-out infinite
+
+  .ocean-decor
+    position: absolute
+    bottom: 18%
+    width: 100%
+
+    .sailboat
+      position: absolute
+      right: 12%
+      bottom: 0
+      animation: sail-float 8s ease-in-out infinite
+
+    .seagull
+      position: absolute
+      left: 15%
+      bottom: 40px
+      animation: seagull-fly 6s ease-in-out infinite
+
+    .seagull-2
+      position: absolute
+      left: 22%
+      bottom: 70px
+      animation: seagull-fly 7s ease-in-out infinite 1s
+
+@keyframes wave-drift
+  0%, 100%
+    transform: translateX(0)
+  50%
+    transform: translateX(-20px)
+
+@keyframes sail-float
+  0%, 100%
+    transform: translateY(0) rotate(0deg)
+  50%
+    transform: translateY(-6px) rotate(1deg)
+
+@keyframes seagull-fly
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(10px, -4px)
+  50%
+    transform: translate(20px, 0)
+  75%
+    transform: translate(10px, 4px)
+
+// 隐藏原有 #web_bg
+#web_bg
+  display: none !important
+
+// 暗色模式背景
+[data-theme="dark"] #ocean-bg
+  .ocean-gradient
+    background: linear-gradient(180deg, #0d1b2a 0%, #1b2838 45%, #162032 100%)
+
+  .ocean-glow
+    background: radial-gradient(ellipse, rgba(78, 166, 255, 0.04) 0%, transparent 70%)
+
+  .ocean-waves
+    .wave-1
+      fill: rgba(78, 166, 255, 0.08)
+    .wave-2
+      fill: rgba(78, 166, 255, 0.12)
+    .wave-3
+      fill: rgba(78, 166, 255, 0.18)
+
+  .ocean-decor
+    .sailboat path
+      fill: rgba(78, 166, 255, 0.12)
+    .seagull path
+      stroke: rgba(78, 166, 255, 0.1)
+
+/* ==========================================
+   透明化原有 header/footer 遮罩
+   ========================================== */
+#page-header
+  background: transparent !important
+
+#page-header.post-bg:before
+  background-color: transparent !important
+
+#footer
+  background: transparent !important
+
 [data-theme="dark"]
-  #page-header::before{
-    background: transparent!important;
-    }	
-/*标题居中*/
-#page
-  h1.page-title
+  #footer::before
+    background: transparent !important
+  #page-header::before
+    background: transparent !important
+
+/* ==========================================
+   灵动岛导航栏
+   ========================================== */
+#nav
+  position: fixed !important
+  top: 12px !important
+  left: 50% !important
+  transform: translateX(-50%)
+  width: auto !important
+  height: auto !important
+  padding: 0 !important
+  background: rgba(255, 255, 255, 0.55) !important
+  backdrop-filter: blur(24px) saturate(180%)
+  -webkit-backdrop-filter: blur(24px) saturate(180%)
+  border-radius: 28px
+  box-shadow: 0 2px 16px rgba(78, 166, 255, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04) inset !important
+  z-index: 999
+  opacity: 0
+  transition: opacity .5s ease, transform .4s ease, box-shadow .3s ease
+
+  &.show
+    opacity: 1
+
+  // 滚动向下时隐藏灵动岛
+  &.nav-hidden
+    opacity: 0
+    transform: translateX(-50%) translateY(-20px)
+    pointer-events: none
+
+  #dynamic-island
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 5px 6px
+    gap: 0
+    white-space: nowrap
+
+  #blog_name
+    display: none
+
+  .menus_items
+    display: flex !important
+    align-items: center
+    gap: 0
+
+    .menus_item
+      display: inline-flex !important
+      align-items: center
+      padding: 0 !important
+
+      &.island-item
+        a.site-page
+          display: inline-flex
+          align-items: center
+          justify-content: center
+          padding: 6px 9px
+          border-radius: 50px
+          color: rgba(30, 30, 30, 0.75) !important
+          text-shadow: none !important
+          font-size: .82em
+          font-weight: 500
+          transition: all .3s cubic-bezier(.4, 0, .2, 1)
+          white-space: nowrap
+          position: relative
+          line-height: 1
+          height: auto
+          min-width: 30px
+
+          i
+            font-size: 1em
+            transition: none
+            line-height: 1
+            width: auto
+            text-align: center
+
+          span
+            display: inline-block
+            max-width: 0
+            opacity: 0
+            overflow: hidden
+            margin-left: 0
+            transition: max-width .35s cubic-bezier(.4, 0, .2, 1), opacity .25s ease .05s, margin-left .35s cubic-bezier(.4, 0, .2, 1)
+
+          // 当前页高亮
+          &.active
+            background: rgba(78, 166, 255, 0.15)
+            color: var(--ocean-primary) !important
+            text-decoration: none !important
+
+          &:hover
+            background: rgba(78, 166, 255, 0.1)
+            color: var(--ocean-primary) !important
+            text-decoration: none !important
+
+          &::after
+            display: none !important
+            content: none !important
+            width: 0 !important
+            height: 0 !important
+            opacity: 0 !important
+
+          &:hover::after
+            display: none !important
+            content: none !important
+            width: 0 !important
+            height: 0 !important
+            opacity: 0 !important
+
+  #search-button
+    display: inline-flex !important
+    align-items: center
+    padding: 0 !important
+
+    &.island-item
+      a.site-page
+        display: flex
+        align-items: center
+        justify-content: center
+        gap: 6px
+        padding: 7px 10px
+        border-radius: 20px
+        color: rgba(30, 30, 30, 0.75) !important
+        text-shadow: none !important
+        font-size: .82em
+        font-weight: 500
+        transition: all .3s cubic-bezier(.4, 0, .2, 1)
+        white-space: nowrap
+
+        i
+          font-size: 1em
+
+        span
+          display: inline-block
+          max-width: 0
+          opacity: 0
+          overflow: hidden
+          transition: max-width .35s cubic-bezier(.4, 0, .2, 1), opacity .25s ease .05s
+
+        &:hover
+          background: rgba(78, 166, 255, 0.1)
+          color: var(--ocean-primary) !important
+          text-decoration: none !important
+
+        &::after
+          display: none !important
+          content: none !important
+          width: 0 !important
+          height: 0 !important
+          opacity: 0 !important
+
+        &:hover::after
+          display: none !important
+          content: none !important
+          width: 0 !important
+          height: 0 !important
+          opacity: 0 !important
+
+  #toggle-menu
+    display: none
+    a.site-page
+      color: rgba(30, 30, 30, 0.75) !important
+      text-shadow: none !important
+
+// 灵动岛 hover 展开
+#nav:hover
+  .menus_items .menus_item.island-item a.site-page span,
+  #search-button.island-item a.site-page span
+    max-width: 80px
+    opacity: 1
+    margin-left: 5px
+
+  .menus_items .menus_item.island-item a.site-page,
+  #search-button.island-item a.site-page
+    padding: 7px 14px
+
+// 暗色模式
+[data-theme="dark"] #nav
+  background: rgba(20, 30, 45, 0.75) !important
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(78, 166, 255, 0.06) inset !important
+
+  .menus_items .menus_item.island-item a.site-page
+    color: rgba(255, 255, 255, 0.8) !important
+    text-decoration: none !important
+
+    &.active
+      background: rgba(78, 166, 255, 0.25)
+      color: #fff !important
+      text-decoration: none !important
+
+    &:hover
+      background: rgba(255, 255, 255, 0.12)
+      color: #fff !important
+      text-decoration: none !important
+
+    &::after
+      display: none !important
+      content: none !important
+      width: 0 !important
+      height: 0 !important
+      opacity: 0 !important
+
+    &:hover::after
+      display: none !important
+      content: none !important
+      width: 0 !important
+      height: 0 !important
+      opacity: 0 !important
+
+  #search-button.island-item a.site-page
+    color: rgba(255, 255, 255, 0.8) !important
+
+    &:hover
+      background: rgba(255, 255, 255, 0.12)
+      color: #fff !important
+
+  #toggle-menu a.site-page
+    color: rgba(255, 255, 255, 0.8) !important
+
+// nav-fixed / nav-visible 状态覆盖
+#page-header
+  &.nav-fixed
+    #nav
+      position: fixed !important
+      top: 12px !important
+      background: rgba(255, 255, 255, 0.65) !important
+      box-shadow: 0 2px 16px rgba(78, 166, 255, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04) inset !important
+      transform: translateX(-50%)
+
+  &.nav-visible
+    #nav
+      transform: translateX(-50%)
+
+// 暗色模式下 nav-fixed 状态也要保持深色背景
+[data-theme="dark"] #page-header.nav-fixed #nav
+  background: rgba(20, 30, 45, 0.75) !important
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(78, 166, 255, 0.06) inset !important
+
+// 移动端灵动岛
++maxWidth768()
+  #nav
+    top: 8px !important
+    max-width: 95%
+    border-radius: 22px
+
+    #dynamic-island
+      padding: 4px 4px
+
+    .menus_items
+      .menus_item.island-item a.site-page
+        padding: 6px 8px
+        font-size: .78em
+
+        span
+          max-width: 0
+          opacity: 0
+
+        i
+          font-size: 1em
+
+    #search-button.island-item a.site-page
+      padding: 6px 8px
+      font-size: .78em
+
+      span
+        max-width: 0
+        opacity: 0
+
+  #nav:hover
+    .menus_items .menus_item.island-item a.site-page span,
+    #search-button.island-item a.site-page span
+      max-width: 60px
+      opacity: 1
+
+    .menus_items .menus_item.island-item a.site-page,
+    #search-button.island-item a.site-page
+      padding: 6px 12px
+
+  #nav.hide-menu
+    .menus_items
+      display: flex !important
+    #search-button
+      display: inline-flex !important
+    #toggle-menu
+      display: none !important
+
+/* ==========================================
+   Hero 区域（纯文本，参考设计图）
+   ========================================== */
+.main-content-column
+  display: flex
+  flex-direction: column
+  background: transparent !important
+  box-shadow: none !important
+  border-radius: 0 !important
+  padding: 0 !important
+  transition: none !important
+
+#hero-section
+  padding: 0 0 20px
+  background: transparent !important
+  border: none !important
+  box-shadow: none !important
+
+  .hero-title
+    font-size: 1.5em
+    font-weight: 700
+    color: var(--text-highlight-color)
+    margin: 0 0 6px
+    letter-spacing: -.02em
+    line-height: 1.3
+    display: flex
+    align-items: center
+    gap: 8px
+
+    .hero-wave
+      display: inline-block
+      font-size: 1em
+      color: var(--ocean-primary)
+
+  .hero-subtitle
+    font-size: .88em
+    color: var(--font-color)
+    opacity: .75
+    margin: 0 0 10px
+    line-height: 1.5
+
+  .hero-meta
+    display: flex
+    align-items: center
+    gap: 0
+    font-size: .72em
+    color: var(--font-color)
+    opacity: .55
+
+    span
+      display: inline-flex
+      align-items: center
+      padding: 3px 8px
+      background: rgba(255, 255, 255, 0.5)
+      border: 1px solid rgba(78, 166, 255, 0.12)
+      border-radius: 12px
+      margin-right: 6px
+      backdrop-filter: blur(8px)
+      -webkit-backdrop-filter: blur(8px)
+
+      i
+        margin-right: 4px
+        color: var(--ocean-primary)
+        opacity: .8
+
+      #hero-last-update,
+      #hero-runtime
+        border: none
+        padding: 0
+        background: none
+        margin: 0
+        backdrop-filter: none
+        -webkit-backdrop-filter: none
+
+    .hero-divider
+      display: none
+
++maxWidth768()
+  #hero-section
+    padding: 8px 0 16px
+
+    .hero-title
+      font-size: 1.2em
+
+    .hero-subtitle
+      font-size: .82em
+
+    .hero-meta
+      flex-wrap: wrap
+      gap: 6px
+
+      span
+        margin-right: 0
+
+/* ==========================================
+   文章列表分隔标题
+   ========================================== */
+.posts-list-header
+  padding: 4px 0 4px
+
+  .posts-list-title
+    font-size: 1em
+    font-weight: 600
+    color: var(--text-highlight-color)
+    display: flex
+    align-items: center
+    gap: 8px
+
+    &::before
+      content: ''
+      display: inline-block
+      width: 3px
+      height: 14px
+      background: var(--ocean-primary)
+      border-radius: 2px
+
+    &::after
+      content: ''
+      flex-grow: 1
+      height: 1px
+      background: linear-gradient(90deg, rgba(78, 166, 255, 0.15), transparent)
+      margin-left: 4px
+
+/* ==========================================
+   普通文章卡片 - 固定高度
+   ========================================== */
+#recent-posts
+  > .recent-post-item:not(.featured-post)
+    height: 18em !important
+    margin-top: 20px
+    border-radius: var(--ocean-radius)
+    background: transparent !important
+    border: 1px solid var(--ocean-card-border)
+
+    +maxWidth768()
+      height: 15em !important
+      margin-top: 16px
+
+    .post_cover img.post_bg
+      opacity: 0.9
+
+    & > .recent-post-info
+      padding: 0 0 1.5em 1.5em
+
+      +maxWidth768()
+        padding: 0 0 1.2em 1.2em
+
+      & > .article-title
+        font-size: 1.5em
+        margin-bottom: 0.4em
+
+        +maxWidth768()
+          font-size: 1.25em
+
+/* 评论数加"条评论"后缀 */
+.twikoo-count::after
+  content: ' 条评论'
+  font-size: inherit
+
+/* ==========================================
+   Featured Post - 最新文章特色卡片
+   ========================================== */
+.recent-post-item.featured-post
+  position: relative
+  overflow: hidden
+  border-radius: var(--ocean-radius)
+  box-shadow: var(--ocean-shadow)
+  border: none !important
+  background: transparent !important
+  height: 18em !important
+  margin-bottom: 20px
+  cursor: pointer
+  transition: all .35s cubic-bezier(.4, 0, .2, 1)
+
+  &:hover
+    box-shadow: var(--ocean-shadow-hover)
+    transform: translateY(-4px)
+
+    img.post_bg
+      transform: scale(1.05)
+
+  img.post_bg
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    object-fit: cover
+    z-index: 0
+    transition: transform .5s ease
+
+  .post-overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 55%
+    height: 100%
+    background: linear-gradient(90deg, rgba(238, 246, 255, 0.96) 0%, rgba(235, 244, 255, 0.92) 35%, rgba(225, 238, 255, 0.8) 55%, rgba(210, 230, 255, 0.5) 72%, rgba(200, 225, 255, 0.2) 88%, transparent 100%)
+    padding: 44px 40px 28px
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    color: var(--text-highlight-color)
+    z-index: 1
+
+    .featured-badge
+      position: absolute
+      top: 16px
+      left: 40px
+      display: inline-flex
+      align-items: center
+      gap: 4px
+      font-size: .8em
+      color: #fff
+      background: var(--ocean-primary)
+      padding: 4px 10px
+      border-radius: 8px
+      font-weight: 600
+      width: fit-content
+
+      i
+        color: #ffb84d
+        font-size: .9em
+
+    .article-title
+      font-size: 1.5em
+      font-weight: 700
+      color: var(--text-highlight-color)
+      line-height: 1.4
+      margin-bottom: 10px
+      display: -webkit-box
+      -webkit-line-clamp: 2
+      -webkit-box-orient: vertical
+      overflow: hidden
+
+      &:hover
+        color: var(--ocean-primary)
+
+    .article-summary
+      font-size: .88em
+      color: var(--font-color)
+      opacity: .85
+      line-height: 1.65
+      margin-bottom: 12px
+      display: -webkit-box
+      -webkit-line-clamp: 2
+      -webkit-box-orient: vertical
+      overflow: hidden
+
+    .article-meta-wrap
+      font-size: .8em
+      color: var(--font-color)
+      opacity: .7
+      display: flex
+      flex-wrap: wrap
+      align-items: center
+      gap: 6px
+      margin-bottom: 12px
+
+      .article-meta-separator
+        opacity: .5
+
+      .article-meta
+        display: inline-flex
+        align-items: center
+        gap: 3px
+
+      a
+        color: var(--font-color)
+
+        &:hover
+          color: var(--ocean-primary)
+
+      i
+        margin-right: 2px
+
+    .featured-readmore
+      display: inline-flex
+      align-items: center
+      gap: 6px
+      padding: 7px 14px
+      background: var(--ocean-primary)
+      color: #fff
+      border-radius: 10px
+      font-size: .85em
+      font-weight: 500
+      width: fit-content
+      transition: all .2s ease
+
+      &:hover
+        background: var(--ocean-secondary)
+        transform: translateX(2px)
+
+      i
+        font-size: .9em
+        transition: transform .2s ease
+
++maxWidth768()
+  .recent-post-item.featured-post
+    height: auto !important
+    min-height: 240px
+
+    .post-overlay
+      width: 100%
+      padding: 44px 20px 20px
+      justify-content: flex-end
+      background: linear-gradient(180deg, rgba(238, 246, 255, 0.5) 0%, rgba(230, 241, 255, 0.94) 100%)
+
+      .featured-badge
+        position: absolute
+        top: 14px
+        left: 20px
+
+      .article-title
+        font-size: 1.2em
+        margin-bottom: 8px
+
+      .article-summary
+        font-size: .82em
+        margin-bottom: 10px
+
+      .article-meta-wrap
+        margin-bottom: 12px
+
+/* ==========================================
+   弱双栏布局
+   ========================================== */
+.layout
+  max-width: 1200px
+  margin: 0 auto
+  display: flex
+
+  > div:first-child
+    width: 100%
+
+  > .aside-content
+    width: 280px
+    flex-shrink: 0
+    padding-left: 20px
+
++minWidth900()
+  .layout
+    > div:first-child
+      width: calc(100% - 280px)
+
++maxWidth900()
+  .layout
+    flex-direction: column
+
+    > .aside-content
+      width: 100%
+      padding-left: 0
+      padding-top: 20px
+
++minWidth900()
+  html.hide-aside
+    .layout
+      justify-content: center
+
+      > .aside-content
+        display: none
+
+      > div:first-child
+        width: 80%
+
+/* ==========================================
+   毛玻璃卡片基础样式（仅侧栏卡片）
+   ========================================== */
+.card-widget
+  background: var(--ocean-card-bg) !important
+  backdrop-filter: var(--ocean-blur)
+  -webkit-backdrop-filter: var(--ocean-blur)
+  border-radius: var(--ocean-radius) !important
+  border: 1px solid var(--ocean-card-border)
+  box-shadow: var(--ocean-shadow)
+  transition: all .35s cubic-bezier(.4, 0, .2, 1)
+
+  &:hover
+    box-shadow: var(--ocean-shadow-hover)
+    transform: translateY(-4px)
+    background: var(--ocean-card-hover) !important
+
+/* ==========================================
+   侧栏卡片样式
+   ========================================== */
+#aside-content
+  > .card-widget
+    padding: 20px 22px
+    margin-top: 28px !important
+
+    &:first-child
+      margin-top: 0 !important
+
+    &:not(:first-child)
+      margin-top: 28px !important
+
+  .card-info
+    .card-info-social-icons
+      margin: 10px 0 0 !important
+
+    .author-info__description
+      display: none
+
+  .card-info
     text-align: center
-#post-info
-  .post-title
-    text-align: center
-/*正文大小*/   
+
+    .avatar-img
+      width: 80px
+      height: 80px
+      border-radius: 50%
+      overflow: hidden
+      margin: 0 auto 10px
+      border: 2px solid rgba(78, 166, 255, 0.2)
+      box-shadow: 0 2px 12px rgba(78, 166, 255, 0.1)
+
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        transition: transform .5s
+
+        &:hover
+          transform: rotate(360deg)
+
+    .author-info__name
+      font-weight: 600
+      font-size: 1.15em
+      color: var(--text-highlight-color)
+
+    .author-info__description
+      margin-top: 4px
+      font-size: .88em
+      color: var(--font-color)
+      opacity: .6
+
+    .card-info-data
+      display: flex
+      justify-content: center
+      gap: 16px
+      margin: 14px 0 8px
+
+      .card-info-data-item
+        a
+          display: flex
+          flex-direction: column
+          align-items: center
+          color: var(--font-color)
+          transition: color .2s
+
+          &:hover
+            color: var(--ocean-primary)
+
+        .headline
+          font-size: .78em
+          opacity: .6
+
+        .length-num
+          font-size: 1.3em
+          font-weight: 600
+          color: var(--ocean-primary)
+
+    .card-info-social-icons
+      display: flex
+      justify-content: center
+      gap: 6px
+      margin-top: 8px
+
+      .social-icon
+        color: var(--font-color)
+        font-size: 1.2em
+        transition: all .3s
+        padding: 4px
+
+        &:hover
+          transform: rotate(540deg) scale(1.1)
+          color: var(--ocean-primary)
+
+  .item-headline
+    font-size: 1em
+    font-weight: 600
+    color: var(--text-highlight-color)
+    padding-bottom: 8px
+    border-bottom: 1px solid rgba(78, 166, 255, 0.1)
+    margin-bottom: 10px
+
+    i
+      color: var(--ocean-primary)
+      margin-right: 6px
+
+  .card-tag-cloud
+    a
+      display: inline-block
+      padding: 2px 6px
+      margin: 2px
+      border-radius: 12px
+      font-size: .85em
+      transition: all .2s
+
+      sup
+        display: none
+
+      &:hover
+        background: rgba(78, 166, 255, 0.1)
+        color: var(--ocean-primary) !important
+
+  .aside-list
+    .aside-list-item
+      padding: 8px 0
+      border-bottom: 1px solid rgba(78, 166, 255, 0.06)
+
+      &:last-child
+        border-bottom: none
+
+      .content
+        .title
+          font-size: .9em
+          line-height: 1.4
+
+  .sticky_layout
+    +minWidth900()
+      position: sticky
+      top: 20px
+
+/* ==========================================
+   Footer 海洋风格
+   ========================================== */
+.ocean-footer
+  position: relative
+  margin-top: 40px
+
+  .footer-wave
+    position: relative
+    margin-bottom: -2px
+
+    svg
+      display: block
+      width: 100%
+      height: 60px
+
+#footer-wrap
+  width: 100%
+  max-width: none !important
+  box-sizing: border-box
+  background: transparent !important
+  border: none !important
+  border-radius: 0 !important
+  box-shadow: none !important
+  padding: 16px 24px
+  font-size: 1em
+  color: var(--text-highlight-color)
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+  gap: 20px
+
+  .footer-left
+    flex: 1
+    min-width: 0
+    text-align: left
+
+    .copyright
+      font-weight: 500
+      margin-bottom: 4px
+
+    .framework-info
+      margin-bottom: 4px
+
+    .footer_custom_text
+      margin-top: 4px
+      line-height: 1.8
+
+      a
+        color: var(--text-highlight-color)
+
+        &:hover
+          color: var(--ocean-primary)
+
+    .footer-separator
+      margin: 0 6px
+
+  .footer-right
+    flex: 0 0 auto
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    min-width: 280px
+
+    .footer-aplayer
+      width: 100%
+      max-width: 380px
+
+      .aplayer
+        margin: 0
+        box-shadow: 0 2px 12px rgba(78, 166, 255, 0.15)
+
++maxWidth768()
+  #footer-wrap
+    flex-direction: column-reverse
+    align-items: stretch
+    padding: 14px 16px
+
+    .footer-left
+      text-align: center
+
+    .footer-right
+      min-width: 0
+      justify-content: center
+
+      .footer-aplayer
+        max-width: 100%
+
+/* ==========================================
+   标题居中
+   ========================================== */
+#page h1.page-title
+  text-align: center
+
+#post-info .post-title
+  text-align: center
+
+/* ==========================================
+   正文大小
+   ========================================== */
 #article-container
-    font-size: 18px
-/*豆瓣影单字体*/
+  font-size: 18px
+
+/* ==========================================
+   豆瓣影单字体
+   ========================================== */
 #hexo-douban-item3
   .hexo-douban-meta
     font-size: 14px
   .hexo-douban-comments
-    font-size: 15px   
-/*页脚设置*/    
-#footer-wrap
-  text-align: left
-  .footer_custom_text
-    margin-top: -25px
-  .aplayer
-    float: right
-    max-width: 500px
-    text-align: center
+    font-size: 15px
 
-/*页码颜色*/  
-#pagination 
+/* ==========================================
+   页码颜色与字体
+   ========================================== */
+#pagination
+  .pagination
+    & > *
+      font-size: 1em !important
+
   .page-number
-    color: #0044ffd3 
+    color: var(--ocean-primary)
 
-/* 固定顶部菜单栏并移除背景 */
-#nav {
-  position: fixed !important;
-  top: 0;
-  width: 100%;
-  background: transparent !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 999;
-}
+/* ==========================================
+   隐藏移动端侧边栏抽屉
+   ========================================== */
+#sidebar,
+#menu-mask
+  display: none !important
 
-/* 去除菜单栏的阴影效果 */
-#nav.show {
-  box-shadow: none !important;
-}
+/* ==========================================
+   链接颜色
+   ========================================== */
+a
+  &:hover
+    color: var(--ocean-primary)
 
-/* 菜单项文字颜色调整为白色 */
-#nav a {
-  color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
+/* ==========================================
+   暗色模式全局调整
+   ========================================== */
+[data-theme="dark"]
+  #hero-section
+    .hero-title
+      color: var(--ocean-secondary)
 
-/* 菜单项悬停效果 */
-#nav a:hover {
-  color: #ffffff !important;
-  opacity: 0.8;
-}
+    .hero-meta
+      span
+        background: rgba(30, 50, 70, 0.4)
+        border-color: rgba(78, 166, 255, 0.2)
 
-/* 搜索按钮 */
-#search-button {
-  color: #ffffff !important;
-}
+  .recent-post-item.featured-post
+    .post-overlay
+      background: linear-gradient(90deg, rgba(30, 50, 70, 0.95) 0%, rgba(30, 50, 70, 0.88) 45%, rgba(30, 50, 70, 0.65) 70%, rgba(30, 50, 70, 0.35) 85%, transparent 100%)
 
-/* 菜单按钮（移动端） */
-#toggle-menu {
-  color: #ffffff !important;
-}
+    .article-title
+      color: #fff
 
-/* 适配暗色模式 - 保持白色但调整阴影 */
-[data-theme="dark"] #nav a {
-  color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
+    .article-summary
+      color: rgba(255, 255, 255, 0.85)
+
+    .article-meta-wrap
+      color: rgba(255, 255, 255, 0.7)
+
+      a
+        color: rgba(255, 255, 255, 0.7)
+
+  .ocean-footer .footer-wave svg path
+    fill: rgba(78, 166, 255, 0.06)
+
+/* ==========================================
+   引用块文字加深
+   ========================================== */
+blockquote
+  color: var(--font-color) !important
+  opacity: .9
+
+  p
+    color: inherit

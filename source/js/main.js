@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const adjustMenu = (init) => {
     if (init) {
-      blogNameWidth = document.getElementById('site-name').offsetWidth
+      const $siteName = document.getElementById('site-name')
+      blogNameWidth = $siteName ? $siteName.offsetWidth : 0
       const $menusEle = document.querySelectorAll('#menus .menus_item')
       menusWidth = 0
       $menusEle.length && $menusEle.forEach(i => { menusWidth += i.offsetWidth })
@@ -13,15 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
       $nav = document.getElementById('nav')
     }
 
-    let hideMenuIndex = ''
-    if (window.innerWidth < 768) hideMenuIndex = true
-    else hideMenuIndex = blogNameWidth + menusWidth + searchWidth > $nav.offsetWidth - 120
-
-    if (hideMenuIndex) {
-      $nav.classList.add('hide-menu')
-    } else {
-      $nav.classList.remove('hide-menu')
-    }
+    // 灵动岛模式：永远不隐藏菜单，PC和移动端保持一致
+    $nav.classList.remove('hide-menu')
   }
 
   // 初始化header
@@ -274,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let initTop = 0
     let isChatShow = true
     const $header = document.getElementById('page-header')
+    const $nav = document.getElementById('nav')
     const isChatBtnHide = typeof chatBtnHide === 'function'
     const isChatBtnShow = typeof chatBtnShow === 'function'
 
@@ -284,12 +279,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentTop > 56) {
           if (isDown) {
             if ($header.classList.contains('nav-visible')) $header.classList.remove('nav-visible')
+            // 灵动岛向下滚动时隐藏
+            if ($nav && !$nav.classList.contains('nav-hidden')) $nav.classList.add('nav-hidden')
             if (isChatBtnShow && isChatShow === true) {
               chatBtnHide()
               isChatShow = false
             }
           } else {
             if (!$header.classList.contains('nav-visible')) $header.classList.add('nav-visible')
+            // 灵动岛向上滚动时显示
+            if ($nav && $nav.classList.contains('nav-hidden')) $nav.classList.remove('nav-hidden')
             if (isChatBtnHide && isChatShow === false) {
               chatBtnShow()
               isChatShow = true
@@ -303,6 +302,8 @@ document.addEventListener('DOMContentLoaded', function () {
           if (currentTop === 0) {
             $header.classList.remove('nav-fixed', 'nav-visible')
           }
+          // 回到顶部时显示灵动岛
+          if ($nav && $nav.classList.contains('nav-hidden')) $nav.classList.remove('nav-hidden')
           $rightside.style.cssText = "opacity: ''; transform: ''"
         }
 
@@ -579,6 +580,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const publishDate = $runtimeCount.getAttribute('data-publishDate')
       $runtimeCount.innerText = btf.diffDate(publishDate) + ' ' + GLOBAL_CONFIG.runtime
     }
+    const $heroRuntime = document.getElementById('hero-runtime')
+    if ($heroRuntime) {
+      const publishDate = $heroRuntime.getAttribute('data-publishDate')
+      $heroRuntime.innerText = btf.diffDate(publishDate) + ' ' + GLOBAL_CONFIG.runtime
+    }
   }
 
   /**
@@ -589,6 +595,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if ($lastPushDateItem) {
       const lastPushDate = $lastPushDateItem.getAttribute('data-lastPushDate')
       $lastPushDateItem.innerText = btf.diffDate(lastPushDate, true)
+    }
+    const $heroLastUpdate = document.getElementById('hero-last-update')
+    if ($heroLastUpdate) {
+      const heroDate = $heroLastUpdate.getAttribute('data-lastPushDate')
+      $heroLastUpdate.innerText = btf.diffDate(heroDate, true)
     }
   }
 
@@ -773,7 +784,7 @@ document.addEventListener('DOMContentLoaded', function () {
     tabsFn.clickFnOfTabs()
     tabsFn.backToTop()
     switchComments()
-    document.getElementById('toggle-menu').addEventListener('click', () => { sidebarFn.open() })
+    document.getElementById('toggle-menu').addEventListener('click', () => { /* 灵动岛模式：不再打开侧边栏 */ })
   }
 
   refreshFn()
