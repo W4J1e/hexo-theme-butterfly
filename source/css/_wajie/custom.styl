@@ -1183,3 +1183,78 @@ blockquote
 
   p
     color: inherit
+
+/* ==========================================
+   文章页专属布局（正文居中，目录无卡片）
+   ========================================== */
++minWidth900()
+  .layout.post-layout
+    max-width: 1400px
+
+    > div:first-child
+      margin-left: 90px
+
+    > .aside-content
+      width: 120px
+      flex-shrink: 0
+      margin-left: 30px
+      padding-left: 0 !important
+
+      .sticky_layout
+        position: sticky
+        position: -webkit-sticky
+        top: 90px
+
+      #card-toc.card-widget
+        background: transparent !important
+        backdrop-filter: none !important
+        -webkit-backdrop-filter: none !important
+        border: none !important
+        box-shadow: none !important
+        padding: 0 !important
+        margin: 0 !important
+        border-radius: 0 !important
+
+        &:hover
+          transform: none !important
+          box-shadow: none !important
+          background: transparent !important
+
+        .item-headline
+          font-size: .95em
+          color: var(--font-color)
+          opacity: .85
+          padding-bottom: 10px
+          margin-bottom: 12px
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12)
+
+        .toc-percentage
+          font-size: 1em
+          color: var(--font-color)
+          opacity: .5
+          font-style: italic
+          margin-top: -6px
+
+        .toc-content
+          margin: 0 !important
+          overflow-y: auto
+          max-height: calc(100vh - 180px)
+
+          & > *
+            margin: 0 !important
+
+          &::-webkit-scrollbar
+            display: none
+
+          .toc-item > .toc-child
+            margin-left: 10px
+            padding-left: 10px
+            border-left: 1px solid rgba(0, 0, 0, 0.1)
+
+[data-theme="dark"]
+  +minWidth900()
+    .layout.post-layout > .aside-content #card-toc .item-headline
+      border-bottom-color: rgba(255, 255, 255, 0.2)
+
+    .layout.post-layout > .aside-content #card-toc .toc-content .toc-item > .toc-child
+      border-left-color: rgba(255, 255, 255, 0.2)
