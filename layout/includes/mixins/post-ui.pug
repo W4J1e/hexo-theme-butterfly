@@ -76,9 +76,7 @@ mixin postUI(posts)
                     a(href=url_for(link) + '#post-comment')
                       span.artalk-count(data-page-key=url_for(link))
                         i.fa-solid.fa-spinner.fa-spin
-          a.featured-readmore(href=url_for(link))
-            | 阅读全文
-            i.fas.fa-arrow-right
+        a.post-overlay-click(href=url_for(link) title=title)
 
       // 文章列表分隔标题
       if isFeatured

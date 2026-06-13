@@ -37,9 +37,9 @@
   --ocean-bg-start: #eef8ff
   --ocean-bg-mid: #d9f0ff
   --ocean-bg-end: #bde4ff
-  --ocean-card-bg: rgba(255, 255, 255, 0.45)
-  --ocean-card-hover: rgba(255, 255, 255, 0.62)
-  --ocean-card-border: rgba(255, 255, 255, 0.4)
+  --ocean-card-bg: rgba(255, 255, 255, 0.2)
+  --ocean-card-hover: rgba(255, 255, 255, 0.35)
+  --ocean-card-border: rgba(255, 255, 255, 0.3)
   --ocean-shadow: 0 2px 16px rgba(78, 166, 255, 0.06)
   --ocean-shadow-hover: 0 8px 30px rgba(78, 166, 255, 0.12)
   --ocean-radius: 20px
@@ -47,9 +47,9 @@
   --ocean-blur: blur(16px)
 
 [data-theme="dark"]
-  --ocean-card-bg: rgba(30, 50, 70, 0.55)
-  --ocean-card-hover: rgba(30, 50, 70, 0.72)
-  --ocean-card-border: rgba(78, 166, 255, 0.1)
+  --ocean-card-bg: rgba(30, 50, 70, 0.2)
+  --ocean-card-hover: rgba(30, 50, 70, 0.35)
+  --ocean-card-border: rgba(78, 166, 255, 0.08)
   --ocean-shadow: 0 2px 16px rgba(0, 0, 0, 0.15)
   --ocean-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25)
 
@@ -83,56 +83,70 @@
   .ocean-waves
     position: absolute
     bottom: 0
-    left: 0
-    width: 100%
+    left: -20%
+    width: 140%
     height: auto
+    animation: wave-drift 12s ease-in-out infinite
 
     .wave-1
       fill: rgba(78, 166, 255, 0.15)
-      animation: wave-drift 12s ease-in-out infinite
 
     .wave-2
       fill: rgba(78, 166, 255, 0.25)
+      transform-origin: center
       animation: wave-drift 8s ease-in-out infinite reverse
+      opacity: 0.9
 
     .wave-3
       fill: rgba(78, 166, 255, 0.4)
+      transform-origin: center
       animation: wave-drift 10s ease-in-out infinite
+      opacity: 0.9
 
   .ocean-decor
     position: absolute
-    bottom: 18%
+    bottom: 0
     width: 100%
+    pointer-events: none
 
     .sailboat
       position: absolute
-      right: 12%
-      bottom: 0
-      animation: sail-float 8s ease-in-out infinite
+      right: 5%
+      bottom: 40px
+      transform-origin: center bottom
+      animation: sail-bob 8s ease-in-out infinite
 
     .seagull
       position: absolute
       left: 15%
-      bottom: 40px
+      bottom: 80px
       animation: seagull-fly 6s ease-in-out infinite
 
     .seagull-2
       position: absolute
       left: 22%
-      bottom: 70px
+      bottom: 110px
       animation: seagull-fly 7s ease-in-out infinite 1s
 
 @keyframes wave-drift
   0%, 100%
-    transform: translateX(0)
+    transform: translateX(0) translateY(0)
+  25%
+    transform: translateX(-40px) translateY(3px)
   50%
-    transform: translateX(-20px)
+    transform: translateX(-80px) translateY(0)
+  75%
+    transform: translateX(-40px) translateY(-3px)
 
-@keyframes sail-float
+@keyframes sail-bob
   0%, 100%
-    transform: translateY(0) rotate(0deg)
+    transform: translateX(0) translateY(0) rotate(-2deg)
+  25%
+    transform: translateX(-40px) translateY(-4px) rotate(1deg)
   50%
-    transform: translateY(-6px) rotate(1deg)
+    transform: translateX(-80px) translateY(-1px) rotate(3deg)
+  75%
+    transform: translateX(-40px) translateY(-6px) rotate(-1deg)
 
 @keyframes seagull-fly
   0%, 100%
@@ -677,6 +691,7 @@
     justify-content: flex-end
     color: var(--text-highlight-color)
     z-index: 1
+    pointer-events: none
 
     .featured-badge
       position: absolute
@@ -686,8 +701,9 @@
       align-items: center
       gap: 4px
       font-size: .8em
-      color: #fff
-      background: var(--ocean-primary)
+      color: var(--ocean-primary)
+      background: transparent
+      border: 1.5px solid var(--ocean-primary)
       padding: 4px 10px
       border-radius: 8px
       font-weight: 600
@@ -701,12 +717,14 @@
       font-size: 1.5em
       font-weight: 700
       color: var(--text-highlight-color)
+      text-decoration: none
       line-height: 1.4
       margin-bottom: 10px
       display: -webkit-box
       -webkit-line-clamp: 2
       -webkit-box-orient: vertical
       overflow: hidden
+      pointer-events: auto
 
       &:hover
         color: var(--ocean-primary)
@@ -714,7 +732,6 @@
     .article-summary
       font-size: .88em
       color: var(--font-color)
-      opacity: .85
       line-height: 1.65
       margin-bottom: 12px
       display: -webkit-box
@@ -725,12 +742,10 @@
     .article-meta-wrap
       font-size: .8em
       color: var(--font-color)
-      opacity: .7
       display: flex
       flex-wrap: wrap
       align-items: center
       gap: 6px
-      margin-bottom: 12px
 
       .article-meta-separator
         opacity: .5
@@ -742,6 +757,8 @@
 
       a
         color: var(--font-color)
+        text-decoration: none
+        pointer-events: auto
 
         &:hover
           color: var(--ocean-primary)
@@ -749,26 +766,18 @@
       i
         margin-right: 2px
 
-    .featured-readmore
-      display: inline-flex
-      align-items: center
-      gap: 6px
-      padding: 7px 14px
-      background: var(--ocean-primary)
-      color: #fff
-      border-radius: 10px
-      font-size: .85em
-      font-weight: 500
-      width: fit-content
-      transition: all .2s ease
+  a.post-overlay-click
+    position: absolute
+    top: 0
+    left: 0
+    width: 55%
+    height: 100%
+    background: transparent !important
+    text-decoration: none !important
+    z-index: 0
 
-      &:hover
-        background: var(--ocean-secondary)
-        transform: translateX(2px)
-
-      i
-        font-size: .9em
-        transition: transform .2s ease
+    &::after
+      display: none !important
 
 +maxWidth768()
   .recent-post-item.featured-post
@@ -796,6 +805,9 @@
 
       .article-meta-wrap
         margin-bottom: 12px
+
+    a.post-overlay-click
+      width: 100%
 
 /* ==========================================
    弱双栏布局
@@ -1002,15 +1014,7 @@
 .ocean-footer
   position: relative
   margin-top: 40px
-
-  .footer-wave
-    position: relative
-    margin-bottom: -2px
-
-    svg
-      display: block
-      width: 100%
-      height: 60px
+  background: transparent !important
 
 #footer-wrap
   width: 100%
@@ -1151,20 +1155,24 @@ a
     .post-overlay
       background: linear-gradient(90deg, rgba(30, 50, 70, 0.95) 0%, rgba(30, 50, 70, 0.88) 45%, rgba(30, 50, 70, 0.65) 70%, rgba(30, 50, 70, 0.35) 85%, transparent 100%)
 
-    .article-title
-      color: #fff
+      .article-title
+        color: #fff
 
-    .article-summary
-      color: rgba(255, 255, 255, 0.85)
+      .article-summary
+        color: rgba(255, 255, 255, 0.85)
 
-    .article-meta-wrap
-      color: rgba(255, 255, 255, 0.7)
-
-      a
+      .article-meta-wrap
         color: rgba(255, 255, 255, 0.7)
 
-  .ocean-footer .footer-wave svg path
-    fill: rgba(78, 166, 255, 0.06)
+        a
+          color: rgba(255, 255, 255, 0.7)
+
+    a.post-overlay-click
+      &::after
+        display: none !important
+
+  .ocean-footer
+    background: transparent !important
 
 /* ==========================================
    引用块文字加深
