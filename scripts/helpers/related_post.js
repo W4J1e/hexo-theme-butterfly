@@ -1,32 +1,30 @@
 /**
  * Butterfly
  * Related Posts
- * According the tag
+ * 按标签筛选候选文章，再按发布时间（新 → 旧）倒序排序
  */
 
 'use strict'
 
 hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
   let relatedPosts = []
+  // 先用标签收集候选文章（按 path 去重），同时累计共享标签数作为二级排序权重；当前文章自身排除
   currentPost.tags.forEach(function (tag) {
     allPosts.forEach(function (post) {
-      if (isTagRelated(tag.name, post.tags)) {
-        const relatedPost = {
-          title: post.title,
-          path: post.path,
-          cover: post.cover,
-          randomcover: post.randomcover,
-          weight: 1,
-          updated: post.updated,
-          created: post.date
-        }
+      if (isTagRelated(tag.name, post.tags) && currentPost.path !== post.path) {
         const index = findItem(relatedPosts, 'path', post.path)
-        if (index !== -1) {
-          relatedPosts[index].weight += 1
+        if (index === -1) {
+          relatedPosts.push({
+            title: post.title,
+            path: post.path,
+            cover: post.cover,
+            randomcover: post.randomcover,
+            updated: post.updated,
+            created: post.date,
+            weight: 1
+          })
         } else {
-          if (currentPost.path !== post.path) {
-            relatedPosts.push(relatedPost)
-          }
+          relatedPosts[index].weight += 1
         }
       }
     })
@@ -42,7 +40,13 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
   const dateType = config.related_post.date_type || 'created'
   const headlineLang = this._p('post.recommend')
 
-  relatedPosts = relatedPosts.sort(compare('weight'))
+  // 一级排序：发布时间倒序（越新越靠前）；二级排序：时间相同时共享标签越多越靠前
+  const sortField = dateType === 'updated' ? 'updated' : 'created'
+  relatedPosts = relatedPosts.sort(function (a, b) {
+    const diff = b[sortField].valueOf() - a[sortField].valueOf()
+    if (diff !== 0) return diff
+    return b.weight - a.weight
+  })
 
   if (relatedPosts.length > 0) {
     result += '<div class="relatedPosts">'
@@ -87,12 +91,4 @@ function findItem (arrayToSearch, attr, val) {
     }
   }
   return -1
-}
-
-function compare (attr) {
-  return function (a, b) {
-    const val1 = a[attr]
-    const val2 = b[attr]
-    return val2 - val1
-  }
 }
